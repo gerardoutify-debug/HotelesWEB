@@ -21,66 +21,149 @@
 
   --color-cream: #f5f0e8;
 
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
-  --shadow-md: 0 8px 24px rgba(0,0,0,0.5);
-  --shadow-lg: 0 24px 64px rgba(0,0,0,0.6);
-  --shadow-glow: 0 0 40px rgba(201,169,110,0.15);
-
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-body: "Satoshi", "Helvetica Neue", system-ui, sans-serif;
+  --shadow-glow: 0 0 40px rgba(201, 169, 110, 0.15);
 }
 
+/* ============================
+   RESET + BASE
+   ============================ */
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
   :root {
     color-scheme: dark;
+    scrollbar-gutter: stable;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  html {
+    height: 100%;
   }
   html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
     background: var(--color-bg);
     color: var(--color-text);
-    font-family: var(--font-body);
+    font-family: var(--font-body), "Helvetica Neue", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   body {
-    min-height: 100vh;
-    overflow-x: hidden;
+    min-height: 100dvh;
+    overflow-x: clip;
+    font-size: 16px;
+    line-height: 1.55;
   }
+  img, video, svg { max-width: 100%; height: auto; display: block; }
+  /* Ensure pages can't overflow horizontally */
+  #__next, main { width: 100%; max-width: 100%; }
+
+  /* Typography defaults */
   h1, h2, h3, h4, .font-display {
-    font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.08;
+    margin: 0;
   }
+  h1 { line-height: 1.05; }
+  h2 { line-height: 1.1; }
+  h3 { line-height: 1.18; }
+  p { margin: 0; line-height: 1.65; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; }
+
   ::selection {
     background: var(--color-primary);
     color: var(--color-text-inverse);
   }
 }
 
+/* ============================
+   COMPONENTS
+   ============================ */
+@layer components {
+  /* Centered, padded container used by every section's inner content */
+  .container-x {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  @media (min-width: 640px) { .container-x { padding-left: 1.75rem; padding-right: 1.75rem; } }
+  @media (min-width: 1024px) { .container-x { padding-left: 2rem; padding-right: 2rem; } }
+
+  .container-narrow {
+    width: 100%;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  @media (min-width: 640px) { .container-narrow { padding-left: 1.75rem; padding-right: 1.75rem; } }
+
+  /* Vertical rhythm between major sections */
+  .section {
+    padding-top: clamp(4rem, 9vw, 8rem);
+    padding-bottom: clamp(4rem, 9vw, 8rem);
+  }
+  .section-sm {
+    padding-top: clamp(3rem, 6vw, 5rem);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .section-lg {
+    padding-top: clamp(5rem, 12vw, 11rem);
+    padding-bottom: clamp(5rem, 12vw, 11rem);
+  }
+
+  /* Title kit */
+  .eyebrow {
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(201, 169, 110, 0.85);
+  }
+  .stack > * + * { margin-top: 1rem; }
+  .stack-tight > * + * { margin-top: 0.5rem; }
+  .stack-loose > * + * { margin-top: 1.5rem; }
+}
+
+/* ============================
+   UTILITIES
+   ============================ */
 @layer utilities {
   .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
   .text-gold { color: var(--color-primary); }
   .bg-gold { background-color: var(--color-primary); }
   .border-gold { border-color: var(--color-primary); }
   .glass {
-    background: rgba(15,18,21,0.55);
+    background: rgba(15, 18, 21, 0.55);
     backdrop-filter: blur(16px) saturate(140%);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
   }
   .glass-strong {
-    background: rgba(10,12,15,0.78);
+    background: rgba(10, 12, 15, 0.78);
     backdrop-filter: blur(24px) saturate(160%);
     -webkit-backdrop-filter: blur(24px) saturate(160%);
-    border-bottom: 1px solid rgba(201,169,110,0.12);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.12);
   }
   .gradient-radial-gold {
-    background: radial-gradient(circle at 50% 0%, rgba(201,169,110,0.18) 0%, transparent 60%);
+    background: radial-gradient(circle at 50% 0%, rgba(201, 169, 110, 0.18) 0%, transparent 60%);
   }
   .reveal-clip {
     clip-path: inset(100% 0 0 0);
-    transition: clip-path 1.2s cubic-bezier(0.7,0,0.2,1);
+    transition: clip-path 1.2s cubic-bezier(0.7, 0, 0.2, 1);
   }
-  .reveal-clip.in {
-    clip-path: inset(0% 0 0 0);
-  }
+  .reveal-clip.in { clip-path: inset(0% 0 0 0); }
   .scrollbar-none::-webkit-scrollbar { display: none; }
   .scrollbar-none { scrollbar-width: none; }
 }

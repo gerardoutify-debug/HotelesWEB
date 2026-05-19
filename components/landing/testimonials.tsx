@@ -37,12 +37,10 @@ export function Testimonials() {
     return () => clearInterval(id);
   }, []);
   return (
-    <section className="relative py-32 px-6 bg-[var(--color-surface)] overflow-hidden">
-      <div className="mx-auto max-w-4xl text-center">
-        <p className="text-[11px] uppercase tracking-[0.4em] text-[var(--color-primary)]/80">
-          Reseñas
-        </p>
-        <div className="mt-10 min-h-[260px] relative">
+    <section className="section bg-[var(--color-surface)] overflow-hidden">
+      <div className="container-narrow text-center">
+        <p className="eyebrow">Reseñas</p>
+        <div className="mt-10 min-h-[280px] md:min-h-[260px] relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={i}
@@ -50,15 +48,18 @@ export function Testimonials() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.8, ease: [0.7, 0, 0.2, 1] }}
+              className="px-2"
             >
-              <span className="font-display text-7xl text-[var(--color-primary)]/60 block leading-none">”</span>
-              <blockquote className="font-display italic text-2xl md:text-4xl text-white/90 leading-snug mt-4 text-balance">
+              <span className="font-display text-7xl text-[var(--color-primary)]/60 block leading-none">
+                ”
+              </span>
+              <blockquote className="font-display italic text-white/90 text-balance text-[clamp(1.5rem,3.5vw,2.5rem)] leading-[1.35] mt-6">
                 {ITEMS[i].quote}
               </blockquote>
-              <div className="mt-8">
-                <p className="text-white text-sm tracking-[0.2em] uppercase">{ITEMS[i].name}</p>
-                <p className="text-white/50 text-xs mt-1">{ITEMS[i].origin}</p>
-                <div className="flex items-center justify-center gap-1 mt-3 text-[var(--color-primary)]">
+              <div className="mt-10 space-y-2">
+                <p className="text-white text-sm tracking-[0.22em] uppercase">{ITEMS[i].name}</p>
+                <p className="text-white/50 text-xs">{ITEMS[i].origin}</p>
+                <div className="flex items-center justify-center gap-1 mt-2 text-[var(--color-primary)]">
                   {Array.from({ length: 5 }).map((_, k) => (
                     <Star key={k} size={14} fill="currentColor" strokeWidth={0} />
                   ))}

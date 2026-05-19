@@ -25,41 +25,39 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled
-          ? "glass-strong py-3"
-          : "py-6 bg-transparent"
+        "fixed top-0 inset-x-0 z-50 transition-all duration-500",
+        scrolled ? "glass-strong py-3" : "py-5 bg-transparent"
       )}
     >
-      <div className="mx-auto max-w-7xl px-6 flex items-center justify-between">
+      <div className="container-x flex items-center justify-between gap-6">
         <Link
           href="/"
           className={cn(
-            "font-display text-2xl tracking-[0.18em] transition-colors duration-500",
+            "font-display text-2xl md:text-[1.6rem] tracking-[0.18em] leading-none transition-colors duration-500 shrink-0",
             scrolled ? "text-[var(--color-primary)]" : "text-white"
           )}
         >
           HoneyMoon
         </Link>
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden md:flex items-center gap-8 lg:gap-10">
           {LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="text-[12px] uppercase tracking-[0.2em] text-white/80 hover:text-[var(--color-primary)] transition-colors"
+              className="text-[11px] uppercase tracking-[0.22em] text-white/80 hover:text-[var(--color-primary)] transition-colors"
             >
               {l.label}
             </Link>
           ))}
           <Link
             href="/login"
-            className="text-[12px] uppercase tracking-[0.2em] text-white/60 hover:text-[var(--color-primary)] transition-colors"
+            className="text-[11px] uppercase tracking-[0.22em] text-white/60 hover:text-[var(--color-primary)] transition-colors"
           >
             Acceder
           </Link>
           <Link
             href="/book"
-            className="rounded-full border border-[var(--color-primary)] px-5 py-2 text-[11px] uppercase tracking-[0.22em] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-[var(--color-text-inverse)] transition-colors"
+            className="rounded-full border border-[var(--color-primary)] px-5 py-2.5 text-[10px] uppercase tracking-[0.24em] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-[var(--color-text-inverse)] transition-colors"
           >
             Reservar
           </Link>
@@ -67,37 +65,39 @@ export function Navbar() {
         <button
           aria-label="Menú"
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden text-white p-2"
+          className="md:hidden text-white p-2 -mr-2"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
       {open && (
-        <div className="md:hidden glass-strong border-t border-white/5 px-6 py-6 flex flex-col gap-4">
-          {LINKS.map((l) => (
+        <div className="md:hidden glass-strong border-t border-white/5 mt-3">
+          <div className="container-x flex flex-col gap-3 py-6">
+            {LINKS.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="text-sm uppercase tracking-[0.2em] text-white/80 py-1"
+              >
+                {l.label}
+              </Link>
+            ))}
             <Link
-              key={l.href}
-              href={l.href}
+              href="/login"
               onClick={() => setOpen(false)}
-              className="text-sm uppercase tracking-[0.18em] text-white/80"
+              className="text-sm uppercase tracking-[0.2em] text-white/60 py-1"
             >
-              {l.label}
+              Acceder
             </Link>
-          ))}
-          <Link
-            href="/login"
-            onClick={() => setOpen(false)}
-            className="text-sm uppercase tracking-[0.18em] text-white/60"
-          >
-            Acceder
-          </Link>
-          <Link
-            href="/book"
-            onClick={() => setOpen(false)}
-            className="text-center rounded-full border border-[var(--color-primary)] px-5 py-3 text-sm uppercase tracking-[0.18em] text-[var(--color-primary)]"
-          >
-            Reservar
-          </Link>
+            <Link
+              href="/book"
+              onClick={() => setOpen(false)}
+              className="mt-3 text-center rounded-full border border-[var(--color-primary)] px-5 py-3 text-sm uppercase tracking-[0.2em] text-[var(--color-primary)]"
+            >
+              Reservar
+            </Link>
+          </div>
         </div>
       )}
     </header>

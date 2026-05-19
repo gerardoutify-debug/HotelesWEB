@@ -12,7 +12,7 @@ const STATS = [
 export function Stats() {
   useCounter("[data-counter]");
   return (
-    <section className="relative py-32 px-6 overflow-hidden">
+    <section className="section relative overflow-hidden">
       <Image
         src="https://picsum.photos/seed/hm-stats/2400/1200"
         alt=""
@@ -21,14 +21,19 @@ export function Stats() {
         className="object-cover opacity-30"
       />
       <div className="absolute inset-0 bg-[var(--color-bg)]/80" />
-      <div className="relative mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-6 text-center">
-        {STATS.map((s) => (
-          <div key={s.label} className="border-l border-white/10 first:border-l-0 md:border-l px-4">
-            <div className="font-display text-5xl md:text-7xl text-[var(--color-primary)]">
+      <div className="container-x relative grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8 text-center">
+        {STATS.map((s, i) => (
+          <div
+            key={s.label}
+            className={`px-2 ${i > 0 ? "md:border-l md:border-white/10" : ""}`}
+          >
+            <div className="font-display text-[var(--color-primary)] leading-none text-[clamp(2.75rem,6vw,5.5rem)]">
               <span data-counter data-target={s.value}>0</span>
               <span>{s.suffix}</span>
             </div>
-            <p className="text-[11px] uppercase tracking-[0.3em] text-white/60 mt-3">{s.label}</p>
+            <p className="text-[11px] uppercase tracking-[0.3em] text-white/60 mt-4 leading-snug">
+              {s.label}
+            </p>
           </div>
         ))}
       </div>

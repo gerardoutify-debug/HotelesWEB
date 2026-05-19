@@ -15,16 +15,14 @@ const ITEMS = [
 export function Amenities() {
   const [active, setActive] = useState(0);
   return (
-    <section id="amenidades" className="relative py-32 md:py-40 px-6 bg-[var(--color-bg)]">
-      <div className="mx-auto max-w-7xl grid md:grid-cols-2 gap-16 items-center">
+    <section id="amenidades" className="section bg-[var(--color-bg)]">
+      <div className="container-x grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.4em] text-[var(--color-primary)]/80">
-            Experiencia HoneyMoon
-          </p>
-          <h2 className="font-display text-4xl md:text-6xl mt-3 text-white max-w-md">
+          <p className="eyebrow">Experiencia HoneyMoon</p>
+          <h2 className="font-display text-white text-[clamp(2.25rem,5vw,4.5rem)] max-w-md mt-5">
             El hotel como destino.
           </h2>
-          <ul className="mt-12 space-y-2">
+          <ul className="mt-10 lg:mt-14 divide-y divide-white/10 border-y border-white/10">
             {ITEMS.map((it, i) => {
               const Icon = it.icon;
               const isActive = i === active;
@@ -32,24 +30,35 @@ export function Amenities() {
                 <li
                   key={it.id}
                   onMouseEnter={() => setActive(i)}
-                  className={`group cursor-pointer border-t border-white/10 py-5 transition-all duration-500 ${
-                    isActive ? "pl-2" : "pl-0 opacity-60"
+                  onFocus={() => setActive(i)}
+                  tabIndex={0}
+                  className={`group cursor-pointer py-5 transition-all duration-500 outline-none ${
+                    isActive ? "opacity-100" : "opacity-60"
                   }`}
                 >
                   <div className="flex items-start gap-4">
-                    <Icon className={`mt-1 transition-colors ${isActive ? "text-[var(--color-primary)]" : "text-white/40"}`} size={20} />
-                    <div className="flex-1">
-                      <h3 className={`font-display text-2xl md:text-3xl transition-colors ${isActive ? "text-white" : "text-white/70"}`}>
+                    <Icon
+                      className={`mt-1 transition-colors ${
+                        isActive ? "text-[var(--color-primary)]" : "text-white/40"
+                      }`}
+                      size={20}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <h3
+                        className={`font-display text-2xl md:text-3xl transition-colors leading-tight ${
+                          isActive ? "text-white" : "text-white/70"
+                        }`}
+                      >
                         {it.title}
                       </h3>
                       <AnimatePresence>
                         {isActive && (
                           <motion.p
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
+                            initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                            animate={{ opacity: 1, height: "auto", marginTop: 8 }}
+                            exit={{ opacity: 0, height: 0, marginTop: 0 }}
                             transition={{ duration: 0.4 }}
-                            className="text-white/60 text-sm mt-2 overflow-hidden"
+                            className="text-white/65 text-sm leading-relaxed overflow-hidden"
                           >
                             {it.desc}
                           </motion.p>
@@ -60,10 +69,9 @@ export function Amenities() {
                 </li>
               );
             })}
-            <li className="border-t border-white/10" />
           </ul>
         </div>
-        <div className="relative aspect-[3/4] md:aspect-[4/5] rounded-2xl overflow-hidden border border-white/10">
+        <div className="relative aspect-[3/4] lg:aspect-[4/5] rounded-2xl overflow-hidden border border-white/10">
           <AnimatePresence mode="wait">
             <motion.div
               key={ITEMS[active].id}
@@ -77,7 +85,7 @@ export function Amenities() {
                 src={ITEMS[active].img}
                 alt={ITEMS[active].title}
                 fill
-                sizes="(min-width: 768px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
