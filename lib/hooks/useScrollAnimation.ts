@@ -197,12 +197,13 @@ export function useClipReveal(selector: string) {
       els.forEach((el) => {
         const t = gsap.fromTo(
           el,
-          { clipPath: "inset(100% 0 0 0)" },
+          { opacity: 0, y: 24 },
           {
-            clipPath: "inset(0% 0 0 0)",
-            duration: 1.2,
-            ease: "power3.inOut",
-            scrollTrigger: { trigger: el, start: "top 85%", once: true },
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+            ease: "power2.out",
+            scrollTrigger: { trigger: el, start: "top 92%", once: true },
           }
         );
         tweens.push(t);

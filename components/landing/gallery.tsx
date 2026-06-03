@@ -5,10 +5,10 @@ import { X } from "lucide-react";
 import { useClipReveal } from "@/lib/hooks/useScrollAnimation";
 
 const PICS = [
-  { src: "https://picsum.photos/seed/hm-gal-1/1600/2000", alt: "Lobby" },
-  { src: "https://picsum.photos/seed/hm-gal-2/1400/1000", alt: "Suite" },
-  { src: "https://picsum.photos/seed/hm-gal-3/1400/1000", alt: "Restaurante" },
-  { src: "https://picsum.photos/seed/hm-gal-4/2400/900", alt: "Piscina" },
+  { src: "/images/lobby.jpeg", alt: "Lobby" },
+  { src: "/images/suite.jpeg", alt: "Suite" },
+  { src: "/images/restaurant.jpeg", alt: "Restaurante" },
+  { src: "/images/piscinas.jpeg", alt: "Piscina" },
 ];
 
 export function Gallery() {
@@ -37,7 +37,7 @@ export function Gallery() {
                 type="button"
                 onClick={() => setOpen(i)}
                 data-clip
-                className={`relative ${span} ${i === 0 ? "h-[28rem] md:h-auto" : "h-72 md:h-auto"} overflow-hidden rounded-2xl group border border-white/5 reveal-clip`}
+                className={`relative ${span} ${i === 0 ? "h-[28rem] md:h-auto" : "h-72 md:h-auto"} overflow-hidden rounded-2xl group border border-white/5`}
               >
                 <Image
                   src={p.src}

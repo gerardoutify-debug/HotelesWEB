@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -26,18 +27,32 @@ export function Navbar() {
     <header
       className={cn(
         "fixed top-0 inset-x-0 z-50 transition-all duration-500",
-        scrolled ? "glass-strong py-3" : "py-5 bg-transparent"
+        scrolled ? "glass-strong py-2 md:py-3" : "py-2 md:py-5 bg-transparent"
       )}
     >
       <div className="container-x flex items-center justify-between gap-6">
         <Link
           href="/"
           className={cn(
-            "font-display text-2xl md:text-[1.6rem] tracking-[0.18em] leading-none transition-colors duration-500 shrink-0",
+            "flex items-center gap-3 shrink-0 transition-colors duration-500",
             scrolled ? "text-[var(--color-primary)]" : "text-white"
           )}
         >
-          HoneyMoon
+          <Image
+            src="/images/logo.png"
+            alt="HoneyMoon Hotel logo"
+            width={76}
+            height={76}
+            style={{ width: "clamp(46px, 8vw, 76px)", height: "clamp(46px, 8vw, 76px)" }}
+            priority
+            className={cn(
+              "shrink-0 object-contain transition-all duration-500 translate-y-[7px] translate-x-[15px]",
+              scrolled ? "" : "brightness-0 invert"
+            )}
+          />
+          <span className="font-display text-2xl md:text-[1.6rem] tracking-[0.18em] leading-none">
+            HoneyMoon
+          </span>
         </Link>
         <nav className="hidden md:flex items-center gap-8 lg:gap-10">
           {LINKS.map((l) => (

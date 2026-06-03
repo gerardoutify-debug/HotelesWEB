@@ -5,7 +5,7 @@ import { Waves, Sparkles, UtensilsCrossed, Dumbbell, Car } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 const ITEMS = [
-  { id: "pool", icon: Waves, title: "Piscina Infinity", desc: "Fusiona el horizonte con el océano real.", img: "https://picsum.photos/seed/hm-pool/1400/1800" },
+  { id: "pool", icon: Waves, title: "Piscina Infinity", desc: "Fusiona el horizonte con el océano real.", img: "/images/piscina infinity.jpeg" },
   { id: "spa", icon: Sparkles, title: "Spa & Wellness", desc: "Rituales de bienestar inspirados en tradiciones andinas.", img: "https://picsum.photos/seed/hm-spa/1400/1800" },
   { id: "dining", icon: UtensilsCrossed, title: "Restaurante Mariscos", desc: "Ingredientes del mar a tu mesa, capturados cada mañana.", img: "https://picsum.photos/seed/hm-dining/1400/1800" },
   { id: "gym", icon: Dumbbell, title: "Fitness 24h", desc: "Equipos de última generación con vista al mar.", img: "https://picsum.photos/seed/hm-gym/1400/1800" },
