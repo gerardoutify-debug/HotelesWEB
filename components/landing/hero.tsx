@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { BookingWidget } from "./booking-widget";
 import { useHeroReveal, useParallax } from "@/lib/hooks/useScrollAnimation";
 
-const HEADLINE = "Donde el océano se convierte en tu hogar";
+const HEADLINE = ["Un santuario privado", "frente al horizonte"];
 
 export function Hero() {
   useHeroReveal("#hm-hero");
@@ -17,7 +17,9 @@ export function Hero() {
     };
   }, []);
 
-  const words = HEADLINE.split(" ");
+  const words = HEADLINE.flatMap((line) => [...line.split(" "), "\n"]).slice(0, -1);
+
+  const isLineBreak = (w: string) => w === "\n";
 
   return (
     <section id="hm-hero" className="relative w-full h-[100svh] min-h-[640px] overflow-hidden">
@@ -45,13 +47,17 @@ export function Hero() {
         <p className="eyebrow mb-7">HoneyMoon · Hotel &amp; Spa</p>
 
         <h1 className="font-display text-white font-light max-w-5xl text-balance text-[clamp(2.25rem,6.2vw,5.75rem)] leading-[1.08]">
-          {words.map((w, i) => (
-            <span key={i} className="inline-block overflow-hidden align-bottom mr-[0.22em]">
-              <span data-word className="inline-block">
-                {w}
+          {words.map((w, i) =>
+            isLineBreak(w) ? (
+              <span key={i} className="block" />
+            ) : (
+              <span key={i} className="inline-block overflow-hidden align-bottom mr-[0.22em]">
+                <span data-word className="inline-block">
+                  {w}
+                </span>
               </span>
-            </span>
-          ))}
+            )
+          )}
         </h1>
 
         <p className="mt-8 max-w-xl text-white/75 text-base md:text-lg leading-relaxed">

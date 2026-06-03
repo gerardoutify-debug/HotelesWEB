@@ -18,7 +18,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "HoneyMoon Hotel — Donde el océano se convierte en tu hogar",
+    default: "HoneyMoon Hotel — Un santuario privado frente al horizonte",
     template: "%s · HoneyMoon Hotel",
   },
   description:
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "HoneyMoon Hotel",
-    description: "Donde el océano se convierte en tu hogar.",
+    description: "Un santuario privado frente al horizonte.",
     type: "website",
     locale: "es_PE",
   },
