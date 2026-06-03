@@ -61,7 +61,10 @@ export function Hero() {
         </h1>
 
         <p className="mt-8 max-w-xl text-white/75 text-base md:text-lg leading-relaxed">
-          Cinco habitaciones de carácter, una sola filosofía: vivir el lujo sin perder el alma del lugar.
+          Cinco habitaciones de carácter, una sola filosofía:
+        </p>
+        <p className="text-white/75 text-base md:text-lg leading-relaxed -mt-2">
+          vivir el lujo sin perder el alma del lugar.
         </p>
 
         <div className="mt-12 w-full flex justify-center">
