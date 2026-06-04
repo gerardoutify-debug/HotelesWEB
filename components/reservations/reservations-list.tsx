@@ -126,7 +126,7 @@ export function ReservationsList({ reservations }: { reservations: Reservation[]
                   <p className="font-display text-2xl text-[var(--color-primary)]">{formatPEN(Number(r.total_amount))}</p>
                   <div className="flex items-center gap-3">
                     <Button asChild variant="secondary" size="sm">
-                      <a href={`/book/success/${r.reservation_code}`}>Detalles <ArrowRight size={13}/></a>
+                      <a href={`/book/success/${r.id}`}>Detalles <ArrowRight size={13}/></a>
                     </Button>
                     {canCancel && (
                       <button

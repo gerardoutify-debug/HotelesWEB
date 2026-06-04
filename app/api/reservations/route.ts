@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient as createServerSupabase } from "@/lib/supabase/server";
 import { sendReservationEmail } from "@/lib/email/brevo";
 import { diffNights } from "@/lib/utils";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +22,17 @@ const Body = z.object({
 });
 
 export async function POST(request: Request) {
+  // Rate limit: máx. 5 reservas cada 10 min por IP (crear reservas es algo raro).
+  // Frena bots que intentarían inundar la disponibilidad o quemar la cuota de emails.
+  const ip = getClientIp(request);
+  const rl = rateLimit({ key: `reservations:${ip}`, limit: 5, windowMs: 10 * 60 * 1000 });
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: "Demasiadas solicitudes. Inténtalo de nuevo en unos minutos." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+    );
+  }
+
   const json = await request.json().catch(() => null);
   const parsed = Body.safeParse(json);
   if (!parsed.success) {

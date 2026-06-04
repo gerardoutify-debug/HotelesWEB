@@ -10,13 +10,21 @@ import { formatPEN, formatDate } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
-export default async function ConfirmationPage({ params }: { params: Promise<{ code: string }> }) {
-  const { code } = await params;
+// El lookup se hace por el UUID aleatorio de la reserva (no por el código
+// secuencial HM-00001, que era adivinable). El UUID actúa como un "token de
+// acceso": solo lo conoce quien hizo la reserva (lo recibe al confirmar). Esto
+// cierra la fuga de datos personales por enumeración de códigos.
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+export default async function ConfirmationPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  if (!UUID_RE.test(id)) notFound();
+
   const supabase = createAdminClient();
   const { data: reservation } = await supabase
     .from("reservations")
     .select("*, room_categories(*), rooms(*)")
-    .eq("reservation_code", code)
+    .eq("id", id)
     .single();
 
   if (!reservation) notFound();

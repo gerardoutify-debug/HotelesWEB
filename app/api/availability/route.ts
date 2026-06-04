@@ -2,10 +2,22 @@ import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { RoomCategory, AvailabilityResult } from "@/lib/types/database";
 import { diffNights } from "@/lib/utils";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
+  // Rate limit: máx. 40 búsquedas por minuto por IP (la búsqueda es frecuente,
+  // pero esto frena scraping/abuso automatizado del endpoint).
+  const ip = getClientIp(request);
+  const rl = rateLimit({ key: `availability:${ip}`, limit: 40, windowMs: 60 * 1000 });
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: "Demasiadas solicitudes. Espera un momento e inténtalo de nuevo." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+    );
+  }
+
   const { searchParams } = new URL(request.url);
   const checkIn = searchParams.get("checkIn");
   const checkOut = searchParams.get("checkOut");

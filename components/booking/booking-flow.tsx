@@ -92,7 +92,7 @@ export function BookingFlow() {
       });
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json.error ?? "No se pudo confirmar la reserva");
-      router.push(`/book/success/${json.reservation_code}`);
+      router.push(`/book/success/${json.id}`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Error desconocido");
     } finally {
